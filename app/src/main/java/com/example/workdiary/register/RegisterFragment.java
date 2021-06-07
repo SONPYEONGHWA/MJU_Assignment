@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
+import com.example.workdiary.R;
 import com.example.workdiary.base.BaseFragment;
 import com.example.workdiary.databinding.FragmentRegisterBinding;
 
@@ -42,9 +44,13 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
             @Override
             public void onClick(View v) {
                 Log.e("company name", viewModel.companyName.getValue().toString());
-                Log.e("company name", viewModel.userName.getValue().toString());
+                Log.e("user name", viewModel.userName.getValue().toString());
 
-//                Navigation.findNavController(getBinding().getRoot()).navigate(R.id.action_registerFragment_to_frameFragment);
+                if (!viewModel.checkInput()) {
+                    Navigation.findNavController(getBinding().getRoot()).navigate(R.id.action_registerFragment_to_frameFragment);
+                } else {
+//                    showDialog();
+                }
             }
         });
     }

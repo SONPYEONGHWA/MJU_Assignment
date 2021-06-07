@@ -8,9 +8,10 @@ import java.util.Objects;
 public class InputChecker {
     private static InputChecker inputChecker = null;
 
-    public static int checkEmptyString(List<String> userInfo) {
-        Long emptyCount = userInfo.stream().filter(Objects::isNull).count();
-        return Integer.parseInt(emptyCount.toString());
+    public static boolean checkEmptyString(List<String> userInfo) {
+        Long emptyCount = userInfo.stream().filter(String::isEmpty
+        ).count();
+        return Integer.parseInt(emptyCount.toString()) > 0;
     }
 
     public static InputChecker getInstance() {
