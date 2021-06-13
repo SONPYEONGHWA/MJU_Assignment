@@ -27,6 +27,7 @@
             android:background="@drawable/dog"
             android:scaleType="fitCenter"
             android:layout_marginTop="40dp"
+            loadUri="@{viewModel.profileUri}"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +48,7 @@
             app:layout_constraintStart_toStartOf="@id/et_company_name"
             app:layout_constraintEnd_toEndOf="@id/et_company_name"/>
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_company_name"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -58,15 +59,14 @@
             android:padding="10dp"
             android:text="@={viewModel.companyName}"
             android:textSize="16sp"
-            app:layout_constraintVertical_bias="0.2"
+            android:layout_marginTop="50dp"
             app:layout_constraintDimensionRatio="7:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_add_profile"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintWidth_percent="0.9" />
 
-        <EditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_user_name"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -87,12 +87,13 @@
             android:id="@+id/btn_register"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/button_workdiary"
             android:fontFamily="@font/nanum_square_round_bold"
             android:text="출근 도장 찍으러 가기!"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:layout_marginTop="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="6:1"
             app:layout_constraintEnd_toEndOf="@id/et_user_name"
             app:layout_constraintStart_toStartOf="@id/et_user_name"

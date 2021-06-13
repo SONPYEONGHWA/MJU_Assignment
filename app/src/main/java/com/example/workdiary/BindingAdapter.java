@@ -1,13 +1,19 @@
 package com.example.workdiary;
 
 
+import android.net.Uri;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.databinding.InverseBindingAdapter;
 import androidx.databinding.InverseBindingListener;
 import androidx.lifecycle.MutableLiveData;
+
+import com.bumptech.glide.Glide;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.shape.ShapeAppearanceModel;
 
 public class BindingAdapter {
     @androidx.databinding.BindingAdapter("android:text")
@@ -40,5 +46,17 @@ public class BindingAdapter {
                 }
             }
         });
+    }
+
+    @androidx.databinding.BindingAdapter("loadUri")
+    public static void setImageUri(ImageView imageView, Uri uri) {
+        Glide.with(imageView.getContext())
+                .load(uri)
+                .into(imageView);
+    }
+
+    @androidx.databinding.BindingAdapter("android:useCircleRadius")
+    public static void useCircleRadius(ShapeableImageView shapeableImageView, Float radius) {
+        shapeableImageView.setShapeAppearanceModel(new ShapeAppearanceModel().withCornerSize(radius));
     }
 }

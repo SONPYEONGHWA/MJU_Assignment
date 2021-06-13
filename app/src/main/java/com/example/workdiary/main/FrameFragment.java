@@ -2,65 +2,105 @@ package com.example.workdiary.main;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.workdiary.R;
+import com.example.workdiary.ViewPagerAdapter;
+import com.example.workdiary.base.BaseFragment;
+import com.example.workdiary.databinding.FragmentFrameBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FrameFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FrameFragment extends Fragment {
+import org.jetbrains.annotations.NotNull;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class FrameFragment extends BaseFragment<FragmentFrameBinding> {
+    private FrameViewModel viewModel;
 
-    public FrameFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FrameFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FrameFragment newInstance(String param1, String param2) {
-        FrameFragment fragment = new FrameFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Override
+    protected FragmentFrameBinding getFragmentBinding(LayoutInflater inflater, ViewGroup container) {
+        return FragmentFrameBinding.inflate(inflater, container, false);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(FrameViewModel.class);
+        setViewPagerAdapter();
+        configureBottomNavigation();
+        observePageIdx();
+
+    }
+
+    private void observePageIdx() {
+        viewModel.getPageIdx().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                getBinding().viewpager.setCurrentItem(integer);
+                selectBottomNavigationMenu(integer);
+            }
+        });
+    }
+
+    private void setViewPagerAdapter() {
+        getBinding().viewpager.setAdapter(new ViewPagerAdapter(this));
+        getBinding().viewpager.setOffscreenPageLimit(1);
+        getBinding().viewpager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                viewModel.setPageIdx(position);
+                switch (position) {
+                    case 0:
+                        getBinding().bottomNav.setSelectedItemId(R.id.work);
+                        viewModel.setPageIdx(position);
+                        break;
+                    case 1:
+                        getBinding().bottomNav.setSelectedItemId(R.id.diary);
+                        viewModel.setPageIdx(position);
+                        break;
+                }
+            }
+        });
+    }
+
+    private void configureBottomNavigation() {
+        getBinding().bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.work:
+                        getBinding().viewpager.setCurrentItem(0);
+                        break;
+                    case R.id.diary:
+                        getBinding().viewpager.setCurrentItem(1);
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
+
+    private void selectBottomNavigationMenu(Integer pageIdx) {
+        switch (pageIdx) {
+            case 0:
+                getBinding().bottomNav.setSelectedItemId(R.id.work);
+                break;
+            case 1:
+                getBinding().bottomNav.setSelectedItemId(R.id.diary);
+                break;
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_frame, container, false);
     }
 }

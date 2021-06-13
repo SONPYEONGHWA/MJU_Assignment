@@ -1,9 +1,6 @@
 package com.example.workdiary.util;
 
-import android.text.TextUtils;
-
 import java.util.List;
-import java.util.Objects;
 
 public class InputChecker {
     private static InputChecker inputChecker = null;
