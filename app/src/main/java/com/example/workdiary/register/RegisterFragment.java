@@ -5,28 +5,21 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.workdiary.R;
-import com.example.workdiary.RegisterDialogFragment;
 import com.example.workdiary.base.BaseFragment;
 import com.example.workdiary.databinding.FragmentRegisterBinding;
-
-import java.security.Permission;
 
 
 public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {

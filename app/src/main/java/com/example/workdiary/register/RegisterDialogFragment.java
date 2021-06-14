@@ -1,4 +1,4 @@
-package com.example.workdiary;
+package com.example.workdiary.register;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;

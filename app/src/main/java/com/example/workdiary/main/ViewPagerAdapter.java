@@ -1,8 +1,11 @@
-package com.example.workdiary;
+package com.example.workdiary.main;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.example.workdiary.diary.DiaryFragment;
+import com.example.workdiary.work.WorkFragment;
 
 import org.jetbrains.annotations.NotNull;
 

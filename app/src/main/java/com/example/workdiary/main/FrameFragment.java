@@ -3,21 +3,16 @@ package com.example.workdiary.main;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.workdiary.R;
-import com.example.workdiary.ViewPagerAdapter;
 import com.example.workdiary.base.BaseFragment;
 import com.example.workdiary.databinding.FragmentFrameBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

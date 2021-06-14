@@ -1,4 +1,4 @@
-package com.example.workdiary;
+package com.example.workdiary.util;
 
 
 import android.net.Uri;
@@ -53,10 +53,5 @@ public class BindingAdapter {
         Glide.with(imageView.getContext())
                 .load(uri)
                 .into(imageView);
-    }
-
-    @androidx.databinding.BindingAdapter("android:useCircleRadius")
-    public static void useCircleRadius(ShapeableImageView shapeableImageView, Float radius) {
-        shapeableImageView.setShapeAppearanceModel(new ShapeAppearanceModel().withCornerSize(radius));
     }
 }
