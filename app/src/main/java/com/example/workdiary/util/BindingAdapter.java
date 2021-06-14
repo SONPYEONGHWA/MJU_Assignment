@@ -42,7 +42,6 @@ public class BindingAdapter {
             public void afterTextChanged(Editable s) {
                 if (textAttrChanged != null) {
                     textAttrChanged.onChange();
-
                 }
             }
         });

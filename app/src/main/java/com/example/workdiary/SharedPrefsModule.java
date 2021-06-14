@@ -1,12 +1,9 @@
-package com.example.workdiary.di;
+package com.example.workdiary;
 
 import android.content.Context;
-
-import com.example.workdiary.AppDatabase;
-import com.example.workdiary.WorkHistoryDao;
+import android.content.SharedPreferences;
 
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
@@ -15,10 +12,11 @@ import dagger.hilt.components.SingletonComponent;
 
 @Module
 @InstallIn(SingletonComponent.class)
-public abstract class WorkHistoryModule {
+public class SharedPrefsModule {
+
     @Provides
     @Singleton
-    public static AppDatabase provideAppDatabase(@ApplicationContext Context context) {
-        return AppDatabase.getInstance(context);
+    public static SharedPrefsUtil provideSharedPrefs(@ApplicationContext Context context){
+        return new SharedPrefsUtil(context);
     }
 }

@@ -25,11 +25,11 @@ public class WorkHistoryModel {
 
     public String getDateTime() { return dateTime; }
 
-    public void setDateTime(String tag) {
+    public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
 
-    public int getTag() {
+    public Integer getTag() {
         return tag;
     }
 

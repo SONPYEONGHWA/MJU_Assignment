@@ -40,7 +40,6 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
 
         setToolbar();
         goToFrameFragment();
-
         getBinding().btnAddProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
