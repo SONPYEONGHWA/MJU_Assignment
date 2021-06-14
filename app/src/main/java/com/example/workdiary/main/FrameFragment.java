@@ -19,7 +19,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.jetbrains.annotations.NotNull;
 
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class FrameFragment extends BaseFragment<FragmentFrameBinding> {
     private FrameViewModel viewModel;
 

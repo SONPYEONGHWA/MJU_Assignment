@@ -7,12 +7,12 @@ import androidx.room.PrimaryKey;
 public class WorkHistoryModel {
     @PrimaryKey(autoGenerate = true)
     private int index;
-    private String startTime;
-    private String endTime;
+    private String dateTime;
+    private Integer tag;
 
-    public WorkHistoryModel(String startTime, String endTime) {
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public WorkHistoryModel(String dateTime, Integer tag) {
+        this.dateTime = dateTime;
+        this.tag = tag;
     }
 
     public int getIndex() {
@@ -23,20 +23,17 @@ public class WorkHistoryModel {
         this.index = index;
     }
 
-    public String getStartTime() {
-        return startTime;
+    public String getDateTime() { return dateTime; }
+
+    public void setDateTime(String tag) {
+        this.dateTime = dateTime;
     }
 
-    public void setStartTime(String startTime) {
-        this.startTime = startTime;
+    public int getTag() {
+        return tag;
     }
 
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public void setTag(Integer tag) {
+        this.tag = tag;
     }
 }
