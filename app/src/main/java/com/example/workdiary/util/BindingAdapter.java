@@ -49,8 +49,10 @@ public class BindingAdapter {
 
     @androidx.databinding.BindingAdapter("loadUri")
     public static void setImageUri(ImageView imageView, Uri uri) {
-        Glide.with(imageView.getContext())
-                .load(uri)
-                .into(imageView);
+        if (uri != null) {
+            Glide.with(imageView.getContext())
+                    .load(uri)
+                    .into(imageView);
+        }
     }
 }

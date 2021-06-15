@@ -13,10 +13,25 @@ import dagger.hilt.components.SingletonComponent;
 @Module
 @InstallIn(SingletonComponent.class)
 public class SharedPrefsModule {
+    private static final String NAME_SHARED_PREFERENCES = "workdiary_prefs";
 
     @Provides
     @Singleton
-    public static SharedPrefsUtil provideSharedPrefs(@ApplicationContext Context context){
-        return new SharedPrefsUtil(context);
+    public static SharedPreferences provideSharedPreferences(@ApplicationContext Context context) {
+        return context.getSharedPreferences(NAME_SHARED_PREFERENCES, Context.MODE_PRIVATE);
     }
+
+    @Provides
+    @Singleton
+    public static SharedPreferences.Editor editor(SharedPreferences sharedPreferences) {
+        return sharedPreferences.edit();
+    }
+
+    @Provides
+    @Singleton
+    public static SharedPrefsUtil provideSharedPrefs(SharedPreferences preferences, SharedPreferences.Editor editor){
+        return new SharedPrefsUtil(preferences, editor);
+    }
+
+
 }

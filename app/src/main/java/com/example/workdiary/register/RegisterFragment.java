@@ -18,13 +18,20 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.workdiary.R;
+import com.example.workdiary.SharedPrefsUtil;
 import com.example.workdiary.base.BaseFragment;
 import com.example.workdiary.databinding.FragmentRegisterBinding;
 
+import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+
+@AndroidEntryPoint
 public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
     private RegisterViewModel viewModel;
     public static final String PERMISSION_GALLERY = Manifest.permission.READ_EXTERNAL_STORAGE;
+    @Inject public SharedPrefsUtil prefs;
 
     @Override
     protected FragmentRegisterBinding getFragmentBinding(LayoutInflater inflater, ViewGroup container) {
@@ -50,7 +57,7 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
 
     private void setToolbar() {
         getBinding().toolbar.setBackButton();
-        getBinding().toolbar.setToolbarTitle("회사등록");
+        getBinding().toolbar.setToolbarTitle("회사 등록");
     }
 
     private void goToFrameFragment() {
@@ -58,6 +65,12 @@ public class RegisterFragment extends BaseFragment<FragmentRegisterBinding> {
             @Override
             public void onClick(View v) {
                 if (!viewModel.checkInput()) {
+                    prefs.setIsRegistered("isRegistered", true);
+                    prefs.setUserName("userName", viewModel.getUserName().getValue());
+                    prefs.setCompanyName("companyName", viewModel.getCompanyName().getValue());
+                    if (viewModel.getProfileUri().getValue() != null) {
+                        prefs.setUserImage("userImage", viewModel.getProfileUri().getValue());
+                    }
                     Navigation.findNavController(getBinding().getRoot()).navigate(R.id.action_registerFragment_to_frameFragment);
                 } else {
                     showDialog();

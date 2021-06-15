@@ -38,6 +38,7 @@ public class FrameFragment extends BaseFragment<FragmentFrameBinding> {
         configureBottomNavigation();
         observePageIdx();
 
+        getBinding().toolbar.setToolbarTitle("출근 정보");
     }
 
     private void observePageIdx() {

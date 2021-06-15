@@ -1,5 +1,6 @@
 package com.example.workdiary.work;
 
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -29,8 +30,32 @@ public class WorkHistoryViewModel extends ViewModel {
     }
 
     private final MutableLiveData<List<WorkHistoryModel>> histories = new MutableLiveData<List<WorkHistoryModel>>();
-    public MutableLiveData<List<WorkHistoryModel>> getHistories() {
+    public LiveData<List<WorkHistoryModel>> getHistories() {
         return histories;
+    }
+
+    private final MutableLiveData<String> userName = new MutableLiveData<String>();
+    public final LiveData<String> getUserName() {
+        return userName;
+    }
+    public void setUserName(String name) {
+        userName.setValue(name);
+    }
+
+    private final  MutableLiveData<String> companyName = new MutableLiveData<String>();
+    public final LiveData<String> getCompanyName() {
+        return companyName;
+    }
+    public void setCompanyName(String name) {
+        companyName.setValue(name);
+    }
+
+    private final MutableLiveData<Uri> userImage = new MutableLiveData<Uri>();
+    public final LiveData<Uri> getUserImage() {
+        return userImage;
+    }
+    public void setUserImage(Uri image) {
+        userImage.setValue(image);
     }
 
     public void saveWork(String dateTime, Integer tag) {
@@ -64,6 +89,5 @@ public class WorkHistoryViewModel extends ViewModel {
     protected void onCleared() {
         super.onCleared();
     }
-
 
 }

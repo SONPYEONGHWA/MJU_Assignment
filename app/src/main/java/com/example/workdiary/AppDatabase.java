@@ -15,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 public abstract class AppDatabase extends RoomDatabase {
     public abstract WorkHistoryDao workHistoryDao();
     private static final String NAME_DATABASE = "Work Diary";
-
     private static AppDatabase INSTANCE;
 
     public static AppDatabase getInstance(Context context) {
