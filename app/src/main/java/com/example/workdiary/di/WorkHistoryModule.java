@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.workdiary.AppDatabase;
 import com.example.workdiary.WorkHistoryDao;
+import com.example.workdiary.util.DateUtil;
 
 import javax.inject.Singleton;
 
@@ -20,5 +21,11 @@ public abstract class WorkHistoryModule {
     @Singleton
     public static AppDatabase provideAppDatabase(@ApplicationContext Context context) {
         return AppDatabase.getInstance(context);
+    }
+
+    @Provides
+    @Singleton
+    public static DateUtil provideDateUtil() {
+        return new DateUtil();
     }
 }

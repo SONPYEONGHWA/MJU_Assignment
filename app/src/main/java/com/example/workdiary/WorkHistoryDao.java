@@ -13,7 +13,7 @@ import io.reactivex.rxjava3.core.Single;
 
 @Dao
 public interface WorkHistoryDao {
-    @Query("SELECT * FROM workHistory ORDER BY workHistory.tag ASC")
+    @Query("SELECT * FROM workHistory ORDER BY workHistory.dateTime ASC")
     Single<List<WorkHistoryModel>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

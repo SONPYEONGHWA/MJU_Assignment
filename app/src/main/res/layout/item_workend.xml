@@ -6,7 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="14dp"
-        android:paddingHorizontal="12dp">
+        android:paddingHorizontal="12dp"
+        android:background="@drawable/box_workend">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_date"
@@ -41,8 +42,7 @@
             android:fontFamily="@font/nanum_square_round_bold"
             app:layout_constraintTop_toBottomOf="@id/tv_name"
             app:layout_constraintStart_toStartOf="@id/tv_date"
-            tools:text="출근: 2021.06.15 09:00:00"/>
-
+            tools:text="퇴근: 2021.06.15 09:00:00"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

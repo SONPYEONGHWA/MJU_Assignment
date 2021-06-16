@@ -5,4 +5,7 @@
     <string name="register_company">회사등록</string>
     <string name="register_notice">입력사항들을 모두 채워주세요!</string>
     <string name="format_user_name" formatted="true">이름: %s </string>
+    <string name="format_work_start" formatted="true">출근: %s</string>
+    <string name="format_work_end" formatted="true">퇴근: %s</string>
+
 </resources>

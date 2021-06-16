@@ -58,10 +58,11 @@ public class WorkHistoryViewModel extends ViewModel {
         userImage.setValue(image);
     }
 
-    public void saveWork(String dateTime, Integer tag) {
+    public void saveWork(String dateTime, Integer tag, String startTime) {
         database.workHistoryDao().insertWorkHistory(
                 new WorkHistoryModel(
                         dateTime,
+                        startTime,
                         tag
                 )
         ).subscribeOn(Schedulers.io())

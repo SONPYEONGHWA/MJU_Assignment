@@ -33,5 +33,4 @@ public class SharedPrefsModule {
         return new SharedPrefsUtil(preferences, editor);
     }
 
-
 }

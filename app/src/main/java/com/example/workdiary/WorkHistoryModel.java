@@ -8,10 +8,12 @@ public class WorkHistoryModel {
     @PrimaryKey(autoGenerate = true)
     private int index;
     private String dateTime;
+    private String workTime = " ";
     private Integer tag;
 
-    public WorkHistoryModel(String dateTime, Integer tag) {
+    public WorkHistoryModel(String dateTime, String workTime, Integer tag) {
         this.dateTime = dateTime;
+        this.workTime = workTime;
         this.tag = tag;
     }
 
@@ -28,6 +30,10 @@ public class WorkHistoryModel {
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
+
+    public String getWorkTime() {return workTime; }
+
+    public void setWorkTime(String workTime) { this.workTime = workTime; }
 
     public Integer getTag() {
         return tag;
