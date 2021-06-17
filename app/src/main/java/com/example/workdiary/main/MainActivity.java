@@ -1,14 +1,13 @@
 package com.example.workdiary.main;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import com.example.workdiary.R;
-import com.example.workdiary.SharedPrefsUtil;
+import com.example.workdiary.util.SharedPrefsUtil;
 import com.example.workdiary.databinding.ActivityMainBinding;
 
 import javax.inject.Inject;

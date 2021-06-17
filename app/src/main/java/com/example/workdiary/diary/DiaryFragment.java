@@ -1,66 +1,70 @@
 package com.example.workdiary.diary;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.workdiary.R;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DiaryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class DiaryFragment extends Fragment {
+import com.example.workdiary.base.BaseFragment;
+import com.example.workdiary.databinding.FragmentDiaryBinding;
+import com.example.workdiary.util.SharedPrefsUtil;
+import com.example.workdiary.util.VerticalItemDecoration;
+import com.example.workdiary.work.WorkHistoryModel;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import javax.inject.Inject;
 
-    public DiaryFragment() {
-        // Required empty public constructor
-    }
+import dagger.hilt.android.AndroidEntryPoint;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DiaryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DiaryFragment newInstance(String param1, String param2) {
-        DiaryFragment fragment = new DiaryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+@AndroidEntryPoint
+public class DiaryFragment extends BaseFragment<FragmentDiaryBinding> {
+    private DiaryViewModel viewModel;
+    private WorkHistoryAdapter adapter;
+    @Inject
+    public SharedPrefsUtil prefsUtil;
+
+
+    @Override
+    protected FragmentDiaryBinding getFragmentBinding(LayoutInflater inflater, ViewGroup container) {
+        return FragmentDiaryBinding.inflate(inflater, container, false);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(DiaryViewModel.class);
+        getBinding().setLifecycleOwner(getViewLifecycleOwner());
+        viewModel.getUserName();
+        viewModel.getWorkHistories();
+        setWorkHistoryAdapter();
+        fetchDatas();
+        Log.e("daa", prefsUtil.getUserName("userName", "peace"));
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_diary, container, false);
+    public void onResume() {
+        super.onResume();
+        viewModel.getUserName();
+        viewModel.getWorkHistories();
+    }
+
+    public void setWorkHistoryAdapter() {
+        getBinding().rvWorkhistory.addItemDecoration(new VerticalItemDecoration(14));
+        adapter = new WorkHistoryAdapter(new WorkHistoryAdapter.WorkHistoryDiffUtil(), prefsUtil.getUserName("userName", "peace"));
+        getBinding().rvWorkhistory.setAdapter(adapter);
+    }
+
+    public void fetchDatas() {
+        viewModel.getHistories().observe(getViewLifecycleOwner(), new Observer<List<WorkHistoryModel>>() {
+            @Override
+            public void onChanged(List<WorkHistoryModel> workHistoryModels) {
+                adapter.submitList(workHistoryModels);
+            }
+        });
     }
 }

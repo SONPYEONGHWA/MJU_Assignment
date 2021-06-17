@@ -1,4 +1,4 @@
-package com.example.workdiary;
+package com.example.workdiary.diary;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -8,15 +8,25 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.workdiary.BR;
 import com.example.workdiary.databinding.ItemWorkendBinding;
 import com.example.workdiary.databinding.ItemWorkhstartBinding;
+import com.example.workdiary.util.DateUtil;
+import com.example.workdiary.work.WorkHistoryModel;
 
 import org.jetbrains.annotations.NotNull;
 
-public class WorkHistoryAdapter extends ListAdapter<WorkHistoryModel, RecyclerView.ViewHolder> {
+import javax.inject.Inject;
 
-    protected WorkHistoryAdapter(@NonNull @NotNull DiffUtil.ItemCallback<WorkHistoryModel> diffCallback) {
+public class WorkHistoryAdapter extends ListAdapter<WorkHistoryModel, RecyclerView.ViewHolder> {
+    @Inject public DateUtil dateUtil;
+    private final String userName;
+
+    public WorkHistoryAdapter(
+            @NonNull @NotNull DiffUtil.ItemCallback<WorkHistoryModel> diffCallback,
+            String userName) {
         super(diffCallback);
+        this.userName = userName;
     }
 
     @NonNull
@@ -30,9 +40,9 @@ public class WorkHistoryAdapter extends ListAdapter<WorkHistoryModel, RecyclerVi
                 return new StartWorkViewHolder(startBinding);
 
             case ViewType.END_TIME:
-                    ItemWorkendBinding endBinding =
-                            ItemWorkendBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-                    return new EndWorkViewHolder(endBinding);
+                ItemWorkendBinding endBinding =
+                        ItemWorkendBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+                return new EndWorkViewHolder(endBinding);
         }
         return null;
     }
@@ -41,15 +51,18 @@ public class WorkHistoryAdapter extends ListAdapter<WorkHistoryModel, RecyclerVi
     public void onBindViewHolder(@NonNull @NotNull RecyclerView.ViewHolder holder, int position) {
         WorkHistoryModel historyData = getItem(position);
 
-        switch (holder.getItemViewType()){
-            case ViewType.START_TIME:
-                holder = (StartWorkViewHolder) holder;
-                ((StartWorkViewHolder) holder).binding.setVariable(BR.data, historyData);
+        if (holder instanceof StartWorkViewHolder) {
+            ((StartWorkViewHolder) holder).binding.setVariable(BR.data, historyData);
+            ((StartWorkViewHolder) holder).binding.tvName.setText(userName);
+        } else {
+            ((EndWorkViewHolder) holder).binding.setVariable(BR.data, historyData);
+            ((EndWorkViewHolder) holder).binding.tvName.setText(userName);
         }
     }
 
     public class StartWorkViewHolder extends RecyclerView.ViewHolder {
         public ItemWorkhstartBinding binding;
+
         public StartWorkViewHolder(
                 ItemWorkhstartBinding binding
         ) {
@@ -74,15 +87,15 @@ public class WorkHistoryAdapter extends ListAdapter<WorkHistoryModel, RecyclerVi
         return getItem(position).getTag();
     }
 
-    public class WorkHistoryDiffUtil extends DiffUtil.ItemCallback<String> {
+    public static class WorkHistoryDiffUtil extends DiffUtil.ItemCallback<WorkHistoryModel> {
         @Override
-        public boolean areItemsTheSame(@NonNull @NotNull String oldItem, @NonNull @NotNull String newItem) {
+        public boolean areItemsTheSame(@NonNull @NotNull WorkHistoryModel oldItem, @NonNull @NotNull WorkHistoryModel newItem) {
             return oldItem.hashCode() == newItem.hashCode();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull @NotNull String oldItem, @NonNull @NotNull String newItem) {
-            return oldItem.equals(newItem);
+        public boolean areContentsTheSame(@NonNull @NotNull WorkHistoryModel oldItem, @NonNull @NotNull WorkHistoryModel newItem) {
+            return oldItem.getIndex() == newItem.getIndex();
         }
     }
 

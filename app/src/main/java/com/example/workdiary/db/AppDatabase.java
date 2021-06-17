@@ -1,13 +1,14 @@
-package com.example.workdiary;
+package com.example.workdiary.db;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import com.example.workdiary.work.WorkHistoryModel;
 
 import org.jetbrains.annotations.NotNull;
 

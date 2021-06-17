@@ -2,8 +2,7 @@ package com.example.workdiary.di;
 
 import android.content.Context;
 
-import com.example.workdiary.AppDatabase;
-import com.example.workdiary.WorkHistoryDao;
+import com.example.workdiary.db.AppDatabase;
 import com.example.workdiary.util.DateUtil;
 
 import javax.inject.Singleton;

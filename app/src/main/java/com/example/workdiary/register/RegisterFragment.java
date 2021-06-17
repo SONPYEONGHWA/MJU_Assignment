@@ -18,7 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.workdiary.R;
-import com.example.workdiary.SharedPrefsUtil;
+import com.example.workdiary.util.SharedPrefsUtil;
 import com.example.workdiary.base.BaseFragment;
 import com.example.workdiary.databinding.FragmentRegisterBinding;
 

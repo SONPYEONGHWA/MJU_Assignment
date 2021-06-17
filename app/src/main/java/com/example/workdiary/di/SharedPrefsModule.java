@@ -1,7 +1,9 @@
-package com.example.workdiary;
+package com.example.workdiary.di;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.example.workdiary.util.SharedPrefsUtil;
 
 import javax.inject.Singleton;
 import dagger.Module;

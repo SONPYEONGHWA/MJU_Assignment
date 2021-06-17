@@ -1,4 +1,4 @@
-package com.example.workdiary;
+package com.example.workdiary.util;
 
 import android.content.SharedPreferences;
 import android.net.Uri;

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="data"
+            type="com.example.workdiary.work.WorkHistoryModel" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -10,39 +15,41 @@
         android:background="@drawable/box_workend">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/nanum_square_round_bold"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="2021.06.15"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textColor="@color/black"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/nanum_square_round_bold"
-            app:layout_constraintTop_toBottomOf="@id/tv_date"
-            app:layout_constraintStart_toStartOf="@id/tv_date"
+            android:fontFamily="@font/nanum_square_round_extrabold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             tools:text="이름: 손평화"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_starttime"
+            android:id="@+id/tv_endtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="12dp"
+            android:text="@{@string/format_work_end(data.dateTime)}"
+            android:fontFamily="@font/nanum_square_round_bold"
+            app:layout_constraintTop_toBottomOf="@id/tv_name"
+            app:layout_constraintStart_toStartOf="@id/tv_name"
+            tools:text="퇴근: 2021.06.15 09:00:00"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_worktime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textColor="@color/black"
             android:layout_marginTop="8dp"
+            android:text="@{@string/format_work_time(data.workTime)}"
             android:fontFamily="@font/nanum_square_round_bold"
-            app:layout_constraintTop_toBottomOf="@id/tv_name"
-            app:layout_constraintStart_toStartOf="@id/tv_date"
-            tools:text="퇴근: 2021.06.15 09:00:00"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_endtime"
+            app:layout_constraintStart_toStartOf="@id/tv_endtime"
+            tools:text="근무시간: 09:00:00"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

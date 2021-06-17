@@ -5,25 +5,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.workdiary.SharedPrefsUtil;
-import com.example.workdiary.WorkHistoryModel;
+import com.example.workdiary.util.SharedPrefsUtil;
 import com.example.workdiary.base.BaseFragment;
 import com.example.workdiary.databinding.FragmentWorkBinding;
 import com.example.workdiary.util.DateUtil;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
+
+import static com.example.workdiary.diary.WorkHistoryAdapter.ViewType.END_TIME;
+import static com.example.workdiary.diary.WorkHistoryAdapter.ViewType.START_TIME;
 
 @AndroidEntryPoint
 public class WorkFragment extends BaseFragment<FragmentWorkBinding> {
@@ -44,20 +44,9 @@ public class WorkFragment extends BaseFragment<FragmentWorkBinding> {
         getBinding().setLifecycleOwner(getViewLifecycleOwner());
 
         stampWorkStart();
-        getWorkHistory();
         setUserInfo();
+        stampWorkEnd();
 
-        viewModel.getHistories().observe(getViewLifecycleOwner(), new Observer<List<WorkHistoryModel>>() {
-            @Override
-            public void onChanged(List<WorkHistoryModel> histories) {
-                histories.stream().forEach(new Consumer<WorkHistoryModel>() {
-                    @Override
-                    public void accept(WorkHistoryModel workHistoryModel) {
-                        Log.e("data", "idx:" + workHistoryModel.getIndex() + "time:" + workHistoryModel.getDateTime() + "workTime:" + workHistoryModel.getWorkTime() );
-                    }
-                });
-            }
-        });
     }
 
     private void setUserInfo() {
@@ -72,7 +61,8 @@ public class WorkFragment extends BaseFragment<FragmentWorkBinding> {
             public void onClick(View v) {
                 String currentTime = dateUtil.getCurrentTime();
                 prefs.setStartTime("startTime", currentTime);
-                viewModel.saveWork(currentTime,0, null);
+                viewModel.saveWork(currentTime,START_TIME, null);
+                Toast.makeText(requireContext(), "출근하셨네요! 오늘도 화이팅:)", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -81,54 +71,12 @@ public class WorkFragment extends BaseFragment<FragmentWorkBinding> {
         getBinding().btnLeaveWork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-            }
-        });
-    }
-
-    private void getWorkHistory() {
-        getBinding().btnLeaveWork.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 String startTime = prefs.getStartTime("startTime", "");
                 String endTime = dateUtil.getCurrentTime();
                 String workTime = dateUtil.diffDate(startTime, endTime);
-                Log.e("workTime:",workTime);
-                viewModel.saveWork(endTime, 1, workTime);
-            }
-        });
-
-        getBinding().ivProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.getWorkHistory();
+                viewModel.saveWork(endTime, END_TIME, workTime);
+                Toast.makeText(requireContext(), "기분좋은 퇴근 야호~!", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-//    private String getCurrentTime() {
-//        Date date = new Date();
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년MM월dd일 hh:mm:ss");
-//        return dateFormat.format(date);
-//    }
-//
-//    private String diffDate(String startTime, String endTime) {
-//        Date date = new Date();
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy년MM월dd일 hh:mm:ss");
-//        String workTime = "";
-//        try {
-//            Date start = dateFormat.parse(startTime);
-//            Date end = dateFormat.parse(endTime);
-//            long diff = end.getTime() - start.getTime();
-//            long seconds = diff / 1000;
-//            long minutes = seconds / 60;
-//            long hours = minutes / 60;
-//            long days = hours / 24;
-//            workTime = days + "일" + hours%24 + "시간" + minutes%60 + "분" + seconds%60 + "초";
-//
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        return workTime;
-//    }
 }

@@ -28,7 +28,6 @@
             android:id="@+id/bottom_nav"
             android:layout_width="match_parent"
             app:menu="@menu/menu_bottom_nav"
-            app:itemIconSize="0dp"
             android:layout_height="wrap_content"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"

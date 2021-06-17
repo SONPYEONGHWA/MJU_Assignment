@@ -1,4 +1,4 @@
-package com.example.workdiary;
+package com.example.workdiary.work;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -35,9 +35,7 @@ public class WorkHistoryModel {
 
     public void setWorkTime(String workTime) { this.workTime = workTime; }
 
-    public Integer getTag() {
-        return tag;
-    }
+    public Integer getTag() { return tag; }
 
     public void setTag(Integer tag) {
         this.tag = tag;
